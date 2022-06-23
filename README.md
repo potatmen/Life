@@ -44,7 +44,7 @@ $ make fix
 
 ![Structure](https://user-images.githubusercontent.com/90863441/175309180-b1e63427-ae4c-48ce-9217-f70ea54096bd.png)
 
-The main object is ```Game( Grid( Size, Filed( Size())) , Repeats())```. 
+The main object is ```Game( Grid( Size(), Filed()) , Repeats())```. 
 
 Object ```Repeats()``` asks for the number of iterations and stores this value. 
 
