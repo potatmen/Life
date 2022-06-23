@@ -42,8 +42,20 @@ $ make fix
 
 ## Structure
 
-![Code structure](https://user-images.githubusercontent.com/90863441/174275386-16798ab9-4833-4d6b-9e5e-7bf01a39e91a.png)
+![Structure](https://user-images.githubusercontent.com/90863441/175309180-b1e63427-ae4c-48ce-9217-f70ea54096bd.png)
 
-Here is the structure of objects. The ususal line means inheritance and goes from parent to child, the dotted line means that some object uses other object as an attribute. As you can see, object Grid uses object Cell. More details will be provided in next sections.
+The main object is ```Game( Grid( Size, Filed( Size())) , Repeats())```. 
+
+Object ```Repeats()``` asks for the number of iterations and stores this value. 
+
+Object ```Grid()``` stores the size of the grid and the playing field. In addition to this, it has methods to print the current state and move to the next iteration. 
+
+Object ```Size()``` asks for the size of the playing field and stores this value.
+
+Object ```Filed()``` stores the the 2-D array of ```Cell()```. ```Filed()``` has methods to ask for initial alive cells and method to count the number of alive neighbour-cells.
+
+Object ```Cell()``` stores the current state of the cell and state after moving to the new generation. Has methods to change and set values to it's attributes.
+
+Object ```Game()``` performs the game process.
 
 ## Usage
