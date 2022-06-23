@@ -44,7 +44,7 @@ $ make fix
 
 ![Structure](https://user-images.githubusercontent.com/90863441/175309180-b1e63427-ae4c-48ce-9217-f70ea54096bd.png)
 
-The main object is ```Game( Grid( Size(), Filed()) , Repeats())```. 
+The main object is ```Game( Grid( Size(), Field()) , Repeats())```. 
 
 Object ```Repeats()``` asks for the number of iterations and stores this value. 
 
@@ -52,7 +52,7 @@ Object ```Grid()``` stores the size of the grid and the playing field. In additi
 
 Object ```Size()``` asks for the size of the playing field and stores this value.
 
-Object ```Filed()``` stores the the 2-D array of ```Cell()```. ```Filed()``` has methods to ask for initial alive cells and method to count the number of alive neighbour-cells.
+Object ```Field()``` stores the the 2-D array of ```Cell()```. ```Field()``` has methods to ask for initial alive cells and method to count the number of alive neighbour-cells.
 
 Object ```Cell()``` stores the current state of the cell and state after moving to the new generation. Has methods to change and set values to it's attributes.
 
