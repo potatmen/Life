@@ -3,11 +3,10 @@
 #define LIFE_GAME_H
 
 #include "grid.h"
-
-class Game : public Grid {
-
+#include "repeats.h"
+class Game {
 public:
-  Game();
+  Game(Grid gr, Repeats rep);
 };
 
 #endif // LIFE_GAME_H

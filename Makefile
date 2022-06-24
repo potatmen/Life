@@ -15,5 +15,5 @@ fix:
 
 clean:
 	rm src/*.o
-	rm run
 	rm tests/*.o
+	rm run

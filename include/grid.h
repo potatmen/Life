@@ -2,24 +2,15 @@
 #ifndef LIFE_GRID_H
 #define LIFE_GRID_H
 
-#include "../include/cell.h"
-#include "../include/config.h"
-#include "../include/outputs.h"
+#include "field.h"
+#include "size.h"
 
-class Grid : public Outputs {
-
+class Grid {
 public:
-  int size;
-  vector<vector<Cell>> g;
-
-  int count(int x, int y);
-
-  Grid();
-
+  Size s;
+  Field g;
+  Grid(Size &st, Field &ff);
   void printGrid();
-
-  void Set();
-
   void nextGen();
 };
 

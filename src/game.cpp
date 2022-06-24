@@ -1,18 +1,23 @@
 
 #include "../include/game.h"
-#include <unistd.h>
-Game::Game() {
-  Set();
-  while (true) {
-    printGrid();
-    cout << "If you want to see next step, type \"n\", else type \"q\"\n";
-    string s;
-    cin >> s;
-    if (s == "n") {
-      cout << "\033[2J\033[1;1H";
-      nextGen();
-    } else {
-      exit(0);
-    }
+
+#include <chrono>
+#include <thread>
+
+void sleep() {
+  using namespace chrono_literals;
+  using chrono::system_clock;
+  this_thread::sleep_for(10ns);
+  this_thread::sleep_until(system_clock::now() + 2s);
+}
+
+Game::Game(Grid g, Repeats rep) {
+  for (int i = 0; i <= rep.rep; i++) {
+    g.printGrid();
+    cout << "This is iteratrion number " << i << endl;
+    ;
+    sleep();
+    g.nextGen();
+    cout << "\033[2J\033[1;1H";
   }
 }

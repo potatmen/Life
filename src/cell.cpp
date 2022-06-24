@@ -1,5 +1,4 @@
 #include "../include/cell.h"
-
 void Cell::changeNewState(bool val) { newState = val; }
 
 void Cell::changeCurState() { curState = newState; }
