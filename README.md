@@ -51,85 +51,30 @@ The __Main__ object is ```Game( Grid( Size(), Field()) , Repeats())```.
 
 <br />
 
-__Object ```Repeats()```__ asks for the number of iterations and stores this value, ```cout << "\033[2J\033[1;1H";``` clears the screen after output.
+__Object ```Repeats()```__ asks for the number of iterations and stores this value.
 
 ```
-Repeats::Repeats() {
-  cout << "How many times do you want to iterate?" << endl;
-  int x;
-  cin >> x;
-  rep = x;
-  cout << "\033[2J\033[1;1H";
-}
+class Repeats {
+public:
+  int rep;
+  Repeats();
+};
+
 ```
 <br />
 <br />
 
 __Object ```Grid()```__ stores the size of the grid and the playing field. In addition to this, it has methods to print the current state and move to the next iteration.
 
-_Constructor._
 ```
-Grid::Grid(Size &st, Field &ff) {
-  s = st;
-  g = ff;
-}
-```
-<br />
-
-_Method prints grid._ 
-
-```g.f[i][j]``` is the cell in ```i-th``` vertical and ```j-th``` horizontal.
-
-```
-void Grid::printGrid() {
-  int sz = s.sz;
-  for (int i = 0; i < sz * 2 + add; ++i) {
-    cout << "-";
-  }
-  cout << "\n";
-  for (int i = 0; i < sz; ++i) {
-    cout << "|  ";
-    for (int j = 0; j < sz; ++j) {
-      if (g.f[i][j].getCurState()) {
-        cout << "o ";
-      } else {
-        cout << ". ";
-      }
-    }
-    cout << " |\n";
-  }
-  for (int i = 0; i < sz * 2 + add; ++i) {
-    cout << "-";
-  }
-  cout << endl;
-}
-```
-<br />
-
-_Method creating next generation._
-
-ChangeNewState method helps to remember the next generation state of this cell, but we can't change it at the moment, because if we change it, neighbor cells, which are haven't changed yet, will have no information about the current cell in the current generation, what is important for their state in the next generation. After we know all the new states of the cells, we can easily change old values to the new ones.
-
-```
-void Grid::nextGen() {
-
-  for (int i = 0; i < s.sz; ++i) {
-    for (int j = 0; j < s.sz; ++j) {
-      int cnt = g.count(i, j, s.sz);
-      if (g.f[i][j].getCurState()) {
-        g.f[i][j].changeNewState(cnt == 2 || cnt == 3);
-      } else {
-        g.f[i][j].changeNewState(cnt == 3);
-      }
-    }
-  }
-
-  for (int i = 0; i < s.sz; ++i) {
-    for (int j = 0; j < s.sz; ++j) {
-      g.f[i][j].changeCurState();
-    }
-  }
-}
+class Grid {
+public:
+  Size s;
+  Field g;
+  Grid(Size &st, Field &ff);
+  void printGrid();
+  void nextGen();
+};
 
 ```
 <br />
@@ -138,17 +83,12 @@ void Grid::nextGen() {
 __Object ```Size()```__ asks for the size of the playing field and stores this value. Flag here is used to make it possible to ask for the size only once. 
 
 ```
-Size::Size() {
-  if (flag) {
-    return;
-  }
-  cout << "Input the size of the square grid: ";
-  flag = true;
-  int n;
-  cin >> n;
-  sz = n;
-  cout << "\033[2J\033[1;1H";
-}
+class Size {
+public:
+  int sz;
+  Size();
+};
+
 ```
 
 <br />
@@ -156,66 +96,40 @@ Size::Size() {
 
 __Object ```Field()```__ stores the the 2-D array of ```Cell()```. ```Field()``` has methods to ask for initial alive cells and method to count the number of alive neighbor-cells.
 
-
-_Method setting the initial cells._
-
 ```
-void Field::read_and_set(Size sz) {
-
-  cout << "Enter the number of coordinates and coordinates of the beginning "
-          "cells (numbers from 1 to "
-       << sz.sz << ")"
-       << "\n";
-
-  int n;
-  cin >> n;
-  for (int i = 0; i < n; i++) {
-    int x;
-    int y;
-    cin >> x >> y;
-    f[x - 1][y - 1].setState(true);
-  }
-  cout << "\033[2J\033[1;1H";
-}
-```
-<br />
-
-_Method counting alive cells near the cell (x,y)._
-
-At the end we do ```return cnt - static_cast<int>(f[x][y].getCurState())``` beacause we should'n count our cell if it's alive.
-
-```
-int Field::count(int x, int y, int sz) {
-  int cnt = 0;
-
-  for (int i = x - 1; i <= x + 1; ++i) {
-    for (int j = y - 1; j <= y + 1; ++j) {
-      if (i < 0 || i > sz - 1 || j < 0 || j > sz - 1) {
-        continue;
-      }
-      cnt += static_cast<int>(f[i][j].getCurState());
-    }
-  }
-  return cnt - static_cast<int>(f[x][y].getCurState());
-}
-
+class Field {
+public:
+  vector<vector<Cell>> f;
+  Field(){};
+  Field(Size sz);
+  void read_and_set(Size sz);
+  int count(int x, int y, int sz);
+};
 ```
 <br />
 <br />
 
 __Object ```Cell()```__ stores the current state of the cell and state after moving to the new generation. Has methods to change and set values to its attributes.
 
+__Details:__ ChangeNewState method helps to remember the next generation state of this cell, but we can't change it at the moment, because if we change it, neighbor cells, which are haven't changed yet, will have no information about the current cell in the current generation, what is important for their state in the next generation. After we know all the new states of the cells, we can easily change old values to the new ones.
 
 As mentioned before, newState is a variable that stores the state of the cell in the next generation during its creation. 
 
 ```
-void Cell::changeNewState(bool val) { newState = val; }
+class Cell {
+private:
+  bool curState = false;
+  bool newState = false;
 
-void Cell::changeCurState() { curState = newState; }
+public:
+  void changeNewState(bool val);
 
-void Cell::setState(bool val) { curState = val; }
+  void changeCurState();
 
-bool Cell::getCurState() const { return curState; }
+  void setState(bool val);
+
+  bool getCurState() const;
+};
 
 ```
 <br />
@@ -224,25 +138,11 @@ bool Cell::getCurState() const { return curState; }
 __Object ```Game()```__ performs the game process with the interval of 2 seconds between generations.
 
 ```
-#include <chrono>
-#include <thread>
+class Game {
+public:
+  Game(Grid gr, Repeats rep);
+};
 
-void sleep() {
-  using namespace chrono_literals;
-  using chrono::system_clock;
-  this_thread::sleep_for(10ns);fun
-  this_thread::sleep_until(system_clock::now() + 2s);
-}
-
-Game::Game(Grid g, Repeats rep) {
-  for (int i = 0; i <= rep.rep; i++) {
-    g.printGrid();
-    cout << "This is iteratrion number " << i << endl;
-    sleep();
-    g.nextGen();
-    cout << "\033[2J\033[1;1H";
-  }
-}
 ```
 
 ## Usage
