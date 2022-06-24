@@ -14,7 +14,7 @@ This project aims to show that [John Conway's Game of Life](https://en.wikipedia
 
 - [Background](#background)
 - [Install](#install)
-- [Realization](#structure)
+- [Structure](#structure)
 - [Usage](#usage)
 
 ## Background
