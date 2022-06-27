@@ -8,14 +8,13 @@ Grid::Grid(Size &st, Field &ff) {
 }
 
 void Grid::printGrid() {
-  int sz = s.sz;
-  for (int i = 0; i < sz * 2 + add; ++i) {
+  for (int i = 0; i < s.m * 2 + add; ++i) {
     cout << "-";
   }
   cout << "\n";
-  for (int i = 0; i < sz; ++i) {
+  for (int i = 0; i < s.n; ++i) {
     cout << "|  ";
-    for (int j = 0; j < sz; ++j) {
+    for (int j = 0; j < s.m; ++j) {
       if (g.f[i][j].getCurState()) {
         cout << "o ";
       } else {
@@ -24,7 +23,7 @@ void Grid::printGrid() {
     }
     cout << " |\n";
   }
-  for (int i = 0; i < sz * 2 + add; ++i) {
+  for (int i = 0; i < s.m * 2 + add; ++i) {
     cout << "-";
   }
   cout << endl;
@@ -32,9 +31,9 @@ void Grid::printGrid() {
 
 void Grid::nextGen() {
 
-  for (int i = 0; i < s.sz; ++i) {
-    for (int j = 0; j < s.sz; ++j) {
-      int cnt = g.count(i, j, s.sz);
+  for (int i = 0; i < s.n; ++i) {
+    for (int j = 0; j < s.m; ++j) {
+      int cnt = g.count(i, j, s);
       if (g.f[i][j].getCurState()) {
         g.f[i][j].changeNewState(cnt == 2 || cnt == 3);
       } else {
@@ -43,8 +42,8 @@ void Grid::nextGen() {
     }
   }
 
-  for (int i = 0; i < s.sz; ++i) {
-    for (int j = 0; j < s.sz; ++j) {
+  for (int i = 0; i < s.n; ++i) {
+    for (int j = 0; j < s.m; ++j) {
       g.f[i][j].changeCurState();
     }
   }

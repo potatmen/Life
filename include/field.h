@@ -13,8 +13,8 @@ public:
   vector<vector<Cell>> f;
   Field(){};
   Field(Size sz);
-  void read_and_set(Size sz);
-  int count(int x, int y, int sz);
+  void read_and_set(vector<pair<int, int>> const &al);
+  int count(int x, int y, Size sz);
 };
 
 #endif // LIFE_FIELD_H

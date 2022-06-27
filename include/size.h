@@ -4,8 +4,10 @@
 
 class Size {
 public:
-  int sz;
-  Size();
+  int n;
+  int m;
+  Size(){};
+  Size(int x, int y);
 };
 
 #endif // LIFE_SIZE_H

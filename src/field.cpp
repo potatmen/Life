@@ -1,36 +1,30 @@
 #include "../include/field.h"
 
 Field::Field(Size sz) {
-  f.resize(sz.sz);
-  for (int i = 0; i < sz.sz; ++i) {
-    f[i].resize(sz.sz);
+  f.resize(sz.n);
+  for (int i = 0; i < sz.n; ++i) {
+    f[i].resize(sz.m);
   }
 }
 
-void Field::read_and_set(Size sz) {
+void Field::read_and_set(vector<pair<int, int>> const &al) {
 
-  cout << "Enter the number of coordinates and coordinates of the beginning "
-          "cells (numbers from 1 to "
-       << sz.sz << ")"
-       << "\n";
-
-  int n;
-  cin >> n;
-  for (int i = 0; i < n; i++) {
+  for (auto const &i : al) {
     int x;
     int y;
-    cin >> x >> y;
+    x = i.first;
+    y = i.second;
     f[x - 1][y - 1].setState(true);
   }
-  cout << "\033[2J\033[1;1H";
+  //  cout << "\033[2J\033[1;1H";
 }
 
-int Field::count(int x, int y, int sz) {
+int Field::count(int x, int y, Size sz) {
   int cnt = 0;
 
   for (int i = x - 1; i <= x + 1; ++i) {
     for (int j = y - 1; j <= y + 1; ++j) {
-      if (i < 0 || i > sz - 1 || j < 0 || j > sz - 1) {
+      if (i < 0 || i > sz.n - 1 || j < 0 || j > sz.m - 1) {
         continue;
       }
       cnt += static_cast<int>(f[i][j].getCurState());
