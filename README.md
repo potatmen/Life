@@ -14,7 +14,7 @@ This project aims to show that [John Conway's Game of Life](https://en.wikipedia
 
 - [Background](#background)
 - [Install](#install)
-- [Realization](#structure)
+- [Structure](#structure)
 - [Usage](#usage)
 
 ## Background
@@ -44,18 +44,105 @@ $ make fix
 
 ![Structure](https://user-images.githubusercontent.com/90863441/175309180-b1e63427-ae4c-48ce-9217-f70ea54096bd.png)
 
-The main object is ```Game( Grid( Size(), Field()) , Repeats())```. 
 
-Object ```Repeats()``` asks for the number of iterations and stores this value. 
+__All ```.cpp``` files include corresponding ```.h``` files that won't be shown.__
 
-Object ```Grid()``` stores the size of the grid and the playing field. In addition to this, it has methods to print the current state and move to the next iteration. 
+The __Main__ object is ```Game( Grid( Size(), Field()) , Repeats())```. 
 
-Object ```Size()``` asks for the size of the playing field and stores this value.
+<br />
 
-Object ```Field()``` stores the the 2-D array of ```Cell()```. ```Field()``` has methods to ask for initial alive cells and method to count the number of alive neighbour-cells.
+__Object ```Repeats()```__ asks for the number of iterations and stores this value.
 
-Object ```Cell()``` stores the current state of the cell and state after moving to the new generation. Has methods to change and set values to it's attributes.
+```
+class Repeats {
+public:
+  int rep;
+  Repeats();
+};
 
-Object ```Game()``` performs the game process.
+```
+<br />
+<br />
+
+__Object ```Grid()```__ stores the size of the grid and the playing field. In addition to this, it has methods to print the current state and move to the next iteration.
+
+```
+class Grid {
+public:
+  Size s;
+  Field g;
+  Grid(Size &st, Field &ff);
+  void printGrid();
+  void nextGen();
+};
+
+```
+<br />
+<br />
+
+__Object ```Size()```__ asks for the size of the playing field and stores this value. Flag here is used to make it possible to ask for the size only once. 
+
+```
+class Size {
+public:
+  int sz;
+  Size();
+};
+
+```
+
+<br />
+<br />
+
+__Object ```Field()```__ stores the the 2-D array of ```Cell()```. ```Field()``` has methods to ask for initial alive cells and method to count the number of alive neighbor-cells.
+
+```
+class Field {
+public:
+  vector<vector<Cell>> f;
+  Field(){};
+  Field(Size sz);
+  void read_and_set(Size sz);
+  int count(int x, int y, int sz);
+};
+```
+<br />
+<br />
+
+__Object ```Cell()```__ stores the current state of the cell and state after moving to the new generation. Has methods to change and set values to its attributes.
+
+__Details:__ ChangeNewState method helps to remember the next generation state of this cell, but we can't change it at the moment, because if we change it, neighbor cells, which are haven't changed yet, will have no information about the current cell in the current generation, what is important for their state in the next generation. After we know all the new states of the cells, we can easily change old values to the new ones.
+
+As mentioned before, newState is a variable that stores the state of the cell in the next generation during its creation. 
+
+```
+class Cell {
+private:
+  bool curState = false;
+  bool newState = false;
+
+public:
+  void changeNewState(bool val);
+
+  void changeCurState();
+
+  void setState(bool val);
+
+  bool getCurState() const;
+};
+
+```
+<br />
+<br />
+
+__Object ```Game()```__ performs the game process with the interval of 2 seconds between generations.
+
+```
+class Game {
+public:
+  Game(Grid gr, Repeats rep);
+};
+
+```
 
 ## Usage
