@@ -23,12 +23,34 @@ According to [previous research](https://github.com/yegor256/fibonacci) measurem
     
 ## Install
 
-To run it, just do:
+At the beginning you need to install boost library, and if you don't have g++, clang-format and clang-tidy. Like this you can install everything:
+
+```
+  sudo apt install g++
+  sudo apt-get install libboost-all-dev
+  sudo apt-get install -y clang-tidy
+  sudo apt install clang-format
+```
+
+To buld project, just do:
 
 ```
 $ make
-$ ./run
 ```
+
+Then you can run:
+
+```
+$ ./Life --help
+```
+
+It will show you all avaliable options.
+For example you can enter something like this:
+
+```
+$ ./Life --batch 20 --size 40x40 --put 3x6 --put 6x8 --put 12x9
+```
+This will run automated game with 20 generation on the grid 40X40 with 3 initial alive cells.
 
 If you want to clean the environment:
 ```
