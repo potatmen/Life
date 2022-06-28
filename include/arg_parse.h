@@ -10,7 +10,8 @@ class Parse {
 public:
   Parse(){};
   static pair<int, int> get_size(string const &s);
-  static vector<pair<int, int>> get_alive(vector<string> const &a);
+  static vector<pair<int, int>> get_alive(vector<string> const &a, int n,
+                                          int m);
 };
 
 #endif // LIFE_PARSE_H

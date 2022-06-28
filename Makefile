@@ -1,17 +1,30 @@
-source := $(wildcard **/*.cpp)
-headers := $(wildcard include/*.h)
-objects := ${source:.cpp=.o}
+SOURCE := $(wildcard **/*.cpp)
+HEADERS := $(wildcard **/*.h)
+OBJECTS := ${SOURCE:.cpp=.o}
 
-Life: $(objects)
-	g++ -L ~/../boost_1_79_0/ $(objects) ~/../usr/local/lib/libboost_program_options.a -o Life
-	bash -c "diff -u <(cat $(source)) <(clang-format $(source))"
-	clang-tidy -header-filter=none '-warnings-as-errors=*' '-checks=*,-readability-magic-numbers,-altera-id-dependent-backward-branch,-cert-err34-c,-cppcoreguidelines-avoid-non-const-global-variables,-readability-function-cognitive-complexity,-misc-no-recursion,-llvm-header-guard,-cppcoreguidelines-init-variables,-altera-unroll-loops,-clang-analyzer-valist.Uninitialized,-llvmlibc-callee-namespace,-cppcoreguidelines-no-malloc,-hicpp-no-malloc,-llvmlibc-implementation-in-namespace,-bugprone-easily-swappable-parameters,-llvmlibc-restrict-system-libc-headers,-llvm-include-order,-modernize-use-trailing-return-type,-cppcoreguidelines-special-member-functions,-hicpp-special-member-functions,-cppcoreguidelines-owning-memory,-cppcoreguidelines-pro-type-vararg,-hicpp-vararg,-fuchsia-default-arguments-calls' $(source)
+# This section is customisable, so you can configure by yourself
 
-%.o: %.cpp tests/%.cpp $(headers)
+INCLUDE := ~/../usr/local/include/ #library headers 
+LINKER := ~/../usr/lib/x86_64-linux-gnu/libboost_program_options.a # .a file to link library 
+ 
+all: install Life
+
+install:
+	sudo apt install g++
+	sudo apt-get install libboost-all-dev
+	sudo apt-get install -y clang-tidy
+	sudo apt install clang-format
+	
+Life: $(OBJECTS)
+	g++ -L $(INCLUDE) $(OBJECTS) $(LINKER) -o Life
+	bash -c "diff -u <(cat $(SOURCE)) <(clang-format $(SOURCE))"
+	clang-tidy -header-filter=none '-warnings-as-errors=*' '-checks=*,-readability-magic-numbers,-altera-id-dependent-backward-branch,-cert-err34-c,-cppcoreguidelines-avoid-non-const-global-variables,-readability-function-cognitive-complexity,-misc-no-recursion,-llvm-header-guard,-cppcoreguidelines-init-variables,-altera-unroll-loops,-clang-analyzer-valist.Uninitialized,-llvmlibc-callee-namespace,-cppcoreguidelines-no-malloc,-hicpp-no-malloc,-llvmlibc-implementation-in-namespace,-bugprone-easily-swappable-parameters,-llvmlibc-restrict-system-libc-headers,-llvm-include-order,-modernize-use-trailing-return-type,-cppcoreguidelines-special-member-functions,-hicpp-special-member-functions,-cppcoreguidelines-owning-memory,-cppcoreguidelines-pro-type-vararg,-hicpp-vararg,-fuchsia-default-arguments-calls' $(SOURCE)
+
+%.o: %.cpp tests/%.cpp $(HEADERS)
 	g++ $@ -o $<	
 
 fix:
-	clang-format -i $(source) $(headers)
+	clang-format -i $(SOURCE) $(HEADERS)
 
 clean:
 	rm src/*.o

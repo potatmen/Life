@@ -13,23 +13,23 @@ void sleep() {
 
 Game::Game(Grid g, Repeats rep) {
   for (int i = 0; i <= rep.rep; i++) {
+    cout << "\033[2J\033[1;1H";
     g.printGrid();
     cout << "This is iteratrion number " << i << endl;
     sleep();
     g.nextGen();
-    cout << "\033[2J\033[1;1H";
   }
 }
 
 Game::Game(Grid g) {
   while (true) {
+    cout << "\033[2J\033[1;1H";
     g.printGrid();
     cout << R"(If you want to carry on, type "n", else type "q")" << endl;
     string s;
     cin >> s;
     if (s == "n") {
       g.nextGen();
-      cout << "\033[2J\033[1;1H";
     } else {
       return;
     }
