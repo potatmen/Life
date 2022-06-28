@@ -6,7 +6,7 @@
 #include "repeats.h"
 class Game {
 public:
-  Game(Grid gr, Repeats rep);
+  Game(Grid gr, Repeats rep, int time);
   Game(Grid gr);
 };
 

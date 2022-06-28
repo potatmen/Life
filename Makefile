@@ -1,13 +1,17 @@
 SOURCES := $(wildcard **/*.cpp)
 HEADERS := $(wildcard **/*.h)
 OBJECTS := ${SOURCES:.cpp=.o}
- 
-all: style Life
+
+TEST_SORUCES := $(wildcard src/*.cpp tests/test.cpp)
+TEST_OBJECTS := ${TEST_SORUCES:.cpp=.o}
+
+
+all: style  Life
   
 Life: $(OBJECTS)
 	g++ $(OBJECTS) -lboost_program_options -o Life
 
-%.o: %.cpp tests/%.cpp $(HEADERS)
+%.o: src/%.cpp tests/%.cpp $(HEADERS)
 	g++ $@ -o $<  
 
 style:

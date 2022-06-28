@@ -1,22 +1,19 @@
 
 #include "../include/game.h"
 
-#include <chrono>
-#include <thread>
-
-void sleep() {
-  using namespace chrono_literals;
-  using chrono::system_clock;
-  this_thread::sleep_for(10ns);
-  this_thread::sleep_until(system_clock::now() + 1s);
+#include <unistd.h>
+const int mult = 1000;
+void sleep(int time) {
+  unsigned int microsecond = time * mult;
+  usleep(microsecond);
 }
 
-Game::Game(Grid g, Repeats rep) {
+Game::Game(Grid g, Repeats rep, int time) {
   for (int i = 0; i <= rep.rep; i++) {
     cout << "\033[2J\033[1;1H";
     g.printGrid();
     cout << "This is iteratrion number " << i << endl;
-    sleep();
+    sleep(time);
     g.nextGen();
   }
 }
