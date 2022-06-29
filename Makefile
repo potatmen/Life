@@ -1,4 +1,4 @@
-SOURCES := $(wildcard **/*.cpp)
+SOURCES := $(wildcard src/*.cpp tests/main.cpp)
 HEADERS := $(wildcard **/*.h)
 OBJECTS := ${SOURCES:.cpp=.o}
 
@@ -6,13 +6,16 @@ TEST_SORUCES := $(wildcard src/*.cpp tests/test.cpp)
 TEST_OBJECTS := ${TEST_SORUCES:.cpp=.o}
 
 
-all: style  Life
+all: style  life testing 
   
-Life: $(OBJECTS)
-	g++ $(OBJECTS) -lboost_program_options -o Life
+life: $(OBJECTS)
+	g++ $(OBJECTS) -lboost_program_options -o life
 
-%.o: src/%.cpp tests/%.cpp $(HEADERS)
-	g++ $@ -o $<  
+testing: $(TEST_OBJECTS)
+	g++ $(TEST_OBJECTS) -lboost_unit_test_framework -o testing
+
+%.o: %.cpp tests/%.cpp $(HEADERS)
+	g++ $@ -o $< 
 
 style:
 	bash -c "diff -u <(cat $(SOURCES)) <(clang-format $(SOURCES))"
@@ -22,6 +25,7 @@ fix:
 	clang-format -i $(SOURCES) $(HEADERS)
 
 clean:
-	rm src/*.o
-	rm tests/*.o
-	rm Life		
+	rm -f src/*.o
+	rm -f tests/*.o
+	rm -f life		
+	rm -f testing

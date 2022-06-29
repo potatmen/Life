@@ -46,7 +46,15 @@ int main(int ac, char *av[]) { // NOLINT
   Size sz = Size(size.first, size.second);
   Field f = Field(sz);
   f.read_and_set(put);
+  if (vm["sleep"].as<int>() < 0) {
+    cout << "Incorrect sleep option value" << endl;
+    exit(0);
+  }
 
+  if (vm["batch"].as<int>() < 0) {
+    cout << "Incorrect batch option value" << endl;
+    exit(0);
+  }
   if (vm.count("batch") > 0) {
     Game g = Game(Grid(sz, f), Repeats(vm["batch"].as<int>()),
                   vm["sleep"].as<int>());
