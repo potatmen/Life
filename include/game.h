@@ -10,4 +10,4 @@ public:
   Game(Grid gr);
 };
 
-#endif // LIFE_GAME_H
+#endif  // LIFE_GAME_H

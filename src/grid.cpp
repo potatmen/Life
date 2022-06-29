@@ -30,7 +30,6 @@ void Grid::printGrid() {
 }
 
 void Grid::nextGen() {
-
   for (int i = 0; i < s.n; ++i) {
     for (int j = 0; j < s.m; ++j) {
       int cnt = g.count(i, j, s);

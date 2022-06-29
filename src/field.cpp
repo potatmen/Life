@@ -8,7 +8,6 @@ Field::Field(Size sz) {
 }
 
 void Field::read_and_set(vector<pair<int, int>> const &al) {
-
   for (auto const &i : al) {
     int x;
     int y;

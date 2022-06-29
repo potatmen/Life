@@ -10,4 +10,4 @@ public:
   Valid(){};
   static bool is_valid(string const &s);
 };
-#endif // LIFE_VALID_H
+#endif  // LIFE_VALID_H

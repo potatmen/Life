@@ -17,4 +17,4 @@ public:
   int count(int x, int y, Size sz);
 };
 
-#endif // LIFE_FIELD_H
+#endif  // LIFE_FIELD_H

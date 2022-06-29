@@ -12,4 +12,4 @@ public:
   pair<string, string> split(string const &s);
   pair<int, int> convert(pair<string, string> const &p);
 };
-#endif // LIFE_PROCESS_H
+#endif  // LIFE_PROCESS_H

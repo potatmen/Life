@@ -8,4 +8,4 @@ public:
   Repeats(int n);
 };
 
-#endif // LIFE_REP_H
+#endif  // LIFE_REP_H

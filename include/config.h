@@ -9,4 +9,4 @@
 
 using namespace std;
 
-#endif // LIFE_CONFIG_H
+#endif  // LIFE_CONFIG_H

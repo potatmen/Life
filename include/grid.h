@@ -14,4 +14,4 @@ public:
   void nextGen();
 };
 
-#endif // LIFE_GRID_H
+#endif  // LIFE_GRID_H

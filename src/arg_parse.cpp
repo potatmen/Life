@@ -1,8 +1,10 @@
 #include "../include/arg_parse.h"
-#include "../include/args_process.h"
-#include "../include/args_valid.h"
+
 #include <string>
 #include <vector>
+
+#include "../include/args_process.h"
+#include "../include/args_valid.h"
 const int size = 20;
 pair<int, int> Parse::get_size(string const &s) {
   if (s.length() == 0) {

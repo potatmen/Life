@@ -10,4 +10,4 @@ public:
   Size(int x, int y);
 };
 
-#endif // LIFE_SIZE_H
+#endif  // LIFE_SIZE_H

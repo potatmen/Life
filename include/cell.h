@@ -20,4 +20,4 @@ public:
   bool getCurState() const;
 };
 
-#endif // LIFE_CELL_H
+#endif  // LIFE_CELL_H
