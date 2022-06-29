@@ -45,6 +45,8 @@ $ ./Life --help
 ```
 
 It will show you all avaliable options.
+
+
 For example you can enter something like this:
 
 ```
@@ -61,6 +63,12 @@ If you want to formate all .cpp files (clang-format will be called to do so):
 ```
 $ make fix
 ```
+
+If you want to run tests:
+```
+$ ./testing
+```
+
 
 ## Structure
 
