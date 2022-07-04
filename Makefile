@@ -5,7 +5,7 @@ FAST_OBJECTS := ${FAST_SOURCES:.cpp=.o}
 FAST_TEST_SOURCES := $(wildcard fast/src/*.cpp fast/tests/test.cpp)
 FAST_TEST_OBJECTS := ${FAST_TEST_SOURCES:.cpp=.o}
 
-all: style slow fast
+all:  slow fast
 
 slow: slow_life
 
