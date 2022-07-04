@@ -1,8 +1,8 @@
-FAST_SOURCES := $(wildcard fast/src/*.cpp fast/tests/main.cpp)
-FAST_HEADERS := $(wildcard fast/**/*.h)
+FAST_SOURCES := $(wildcard Fast/src/*.cpp Fast/tests/main.cpp)
+FAST_HEADERS := $(wildcard Fast/**/*.h)
 FAST_OBJECTS := ${FAST_SOURCES:.cpp=.o}
 
-FAST_TEST_SOURCES := $(wildcard fast/src/*.cpp fast/tests/test.cpp)
+FAST_TEST_SOURCES := $(wildcard Fast/src/*.cpp Fast/tests/test.cpp)
 FAST_TEST_OBJECTS := ${FAST_TEST_SOURCES:.cpp=.o}
 
 all: style slow fast
@@ -18,7 +18,7 @@ fast_test: $(FAST_TEST_OBJECTS)
 	g++ $(FAST_TEST_OBJECTS) -lboost_unit_test_framework -o fast_test
 	./fast_test
 
-%.o: fast/**/%.cpp  $(FAST_HEADERS)
+%.o: Fast/**/%.cpp  $(FAST_HEADERS)
 	g++ $@ -o $< 
 
 SLOW_SOURCES := $(wildcard slow/src/*.cpp)
