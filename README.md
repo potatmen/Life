@@ -52,7 +52,7 @@ $ ./slow_life --help
 ```
 It will show you all avaliable options.
 
-All options are the same to both realizations, so will ```fast_life``` will be used.
+All options are the same to both realizations, so ```fast_life``` will be used.
 
 For example you can enter something like this:
 
