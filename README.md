@@ -28,7 +28,7 @@ According to [previous research](https://github.com/yegor256/fibonacci) measurem
 
 ## Install
 
-At the beginning you need to install boost library, and if you don't have g++, clang-format and clang-tidy. Like this, you can install everything:
+At the beginning you need to install __BOOST__ library, and if you don't have ```g++```, ```clang-format``` and ```clang-tidy```. Like this, you can install everything:
 
 ```
 
