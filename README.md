@@ -71,10 +71,15 @@ If you want to formate all .cpp files (clang-format will be called to do so):
 $ make fix
 ```
 
-If you want to run tests:
+If you want to run tests for ```fast``` or ```slow``` version:
 ```
-$ make test
+$ make fast_test
 ```
+OR
+```
+$ make slow_test
+```
+
 
 If you want to see beautiful game called [Gosper glider gun](https://conwaylife.com/wiki/Gosper_glider_gun) run this:
 
