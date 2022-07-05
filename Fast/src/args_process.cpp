@@ -18,7 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-
 #include "../include/args_process.h"
 
 pair<string, string> Process::split(string const &s) {  // NOLINT
