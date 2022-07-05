@@ -5,7 +5,7 @@ FAST_OBJECTS := ${FAST_SOURCES:.cpp=.o}
 FAST_TEST_SOURCES := $(wildcard Fast/src/*.cpp Fast/tests/test.cpp)
 FAST_TEST_OBJECTS := ${FAST_TEST_SOURCES:.cpp=.o}
 
-all: slow fast
+all: slow fast 
 
 slow: slow_life slow_test
 
@@ -21,12 +21,12 @@ fast_test: $(FAST_TEST_OBJECTS)
 %.o: Fast/**/%.cpp  $(FAST_HEADERS)
 	g++ $@ -o $< 
 
-SLOW_SOURCES := $(wildcard Slow/src/*.cpp Slow/tests/main.cpp)
-SLOW_HEADERS := $(wildcard Slow/**/*.h)
+SLOW_SOURCES := $(wildcard slow/src/*.cpp slow/tests/main.cpp)
+SLOW_HEADERS := $(wildcard slow/**/*.h)
 SLOW_OBJECTS := ${SLOW_SOURCES:.cpp=.o}
 
 
-SLOW_TEST_SOURCES = $(wildcard Slow/src/*.cpp Slow/tests/test.cpp)
+SLOW_TEST_SOURCES = $(wildcard slow/src/*.cpp slow/tests/test.cpp)
 SLOW_TEST_OBJECTS = ${SLOW_TEST_SOURCES:.cpp=.o}
 
 slow_life: $(SLOW_OBJECTS)
@@ -36,7 +36,7 @@ slow_test: $(SLOW_TEST_OBJECTS)
 	g++ $(SLOW_TEST_OBJECTS) -lboost_unit_test_framework -lboost_program_options -o slow_test
 	./slow_test
 
-%.o:  Slow/**/%.cpp  $(SLOW_HEADERS)
+%.o:  slow/**/%.cpp  $(SLOW_HEADERS)
 	g++ $@ -o $< 
 
 
