@@ -35,7 +35,7 @@ fast_life: $(FAST_OBJECTS)
 	g++ $(FAST_OBJECTS) -lboost_program_options -o fast_life
 
 fast_test: $(FAST_TEST_OBJECTS)
-	g++ $(FAST_TEST_OBJECTS) -lboost_unit_test_framework -o fast_test
+	g++ $(FAST_TEST_OBJECTS) -lboost_unit_test_framework -o fast_test 
 	./fast_test
 
 %.o: Fast/**/%.cpp  $(FAST_HEADERS)

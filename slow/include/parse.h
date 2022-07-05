@@ -18,7 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-
 #ifndef _OOP_PARSE_H_
 #define _OOP_PARSE_H_
 
@@ -45,9 +44,10 @@ public:
 
   static bool has(const string &s, char c);
   static bool valid(string const &s);
- pair<int, int> point(const string &s) const;
+  pair<int, int> point(const string &s) const;
   static pair<int, int> size(const string &s);
   static pair<int, int> split(const string &s);
+  void positive();
   void cells();
   void build();  // builders and checkers
 };

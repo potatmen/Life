@@ -30,13 +30,11 @@ private:
 
 public:
   Cell(bool st) : state(st) {}
-  Cell() : Cell(false) {}
+  Cell() : Cell(false) {}  
 
-  // constructors
+  bool status() const;  
 
-  bool status() const;  // getter
-
-  Cell live(int cnt) const;  // process
+  Cell live(int cnt) const;  
 };
 
 #endif  //_OOP_CELL_H_

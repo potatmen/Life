@@ -67,6 +67,17 @@ pair<int, int> Parse::size(const string &s) {
   exit(0);
 }
 
+void Parse::positive() {
+  if (vm["batch"].as<int>() <= 0) {
+    cout << "Incorrect batch input" << endl;
+    exit(0);
+  }
+  if (vm["sleep"].as<int>() <= 0) {
+    cout << "Incorrect sleep input" << endl;
+    exit(0);
+  }
+}
+
 void Parse::cells() {
   points = vm["put"].as<vector<string>>();
   for (auto &p : points) {
@@ -75,6 +86,7 @@ void Parse::cells() {
 }
 
 void Parse::build() {
+  positive();
   pair<int, int> p = size(vm["size"].as<string>());
   n = p.first;
   m = p.second;
