@@ -16,8 +16,8 @@ This project aims to show that [John Conway's Game of Life](https://en.wikipedia
 
 - [Background](#background)
 - [Install](#install)
-- [Structure](#structure)
 - [Usage](#usage)
+- [Structure](#structure)
 
 ## Background
 
@@ -33,6 +33,8 @@ At the beginning you need to install boost library, and if you don't have g++, c
   sudo apt-get install -y clang-tidy
   sudo apt install clang-format
 ```
+
+## Usage
 
 To buld project, just do:
 
@@ -95,12 +97,12 @@ If you want to see infinite loop run:
 
 ## Structure
 
-![Structure](https://user-images.githubusercontent.com/90863441/175309180-b1e63427-ae4c-48ce-9217-f70ea54096bd.png)
+![Structure](https://user-images.githubusercontent.com/90863441/177322155-579f7f99-be1c-4e54-a9a4-c05e79cf7f11.png)
 
 
 __All ```.cpp``` files include corresponding ```.h``` files that won't be shown.__
 
-The __Main__ object is ```Game( Grid( Size(), Field()) , Repeats())```. 
+The __Main__ object is ```Game( Grid( Size(), Field()) , *optional* Repeats())```. 
 
 <br />
 
@@ -138,8 +140,10 @@ __Object ```Size()```__ asks for the size of the playing field and stores this v
 ```
 class Size {
 public:
-  int sz;
-  Size();
+  int n;
+  int m;
+  Size(){};
+  Size(int x, int y);
 };
 
 ```
@@ -193,9 +197,28 @@ __Object ```Game()```__ performs the game process with the interval of 2 seconds
 ```
 class Game {
 public:
-  Game(Grid gr, Repeats rep);
+  Game(Grid gr, Repeats rep, int time);
+  Game(Grid gr);
 };
-
 ```
 
-## Usage
+<br />
+<br />
+
+__Object ```Parse()```__ performs console arguments parsing and checking.
+
+```
+class Parse {
+public:
+  Parse(){};
+  static pair<int, int> get_size(string const &s);
+  static vector<pair<int, int>> get_alive(vector<string> const &a, int n, int m);
+};
+```
+
+<br />
+<br />
+
+Some obejets are not shown because they simply check the correctness of input data and turn strings to ints. 
+
+
