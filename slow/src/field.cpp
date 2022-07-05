@@ -20,7 +20,7 @@ Field Field::rec_add(Field cur, vector<string> s, int pos) {
     return cur;
   }
   Parse p = Parse();
-  pair<int, int> x = Parse::point(s[pos]);
+  pair<int, int> x = p.point(s[pos]);
   return rec_add(cur.with(x.first - 1, x.second - 1, Cell(true)), s, pos + 1);
 }
 

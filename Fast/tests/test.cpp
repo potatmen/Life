@@ -101,8 +101,8 @@ BOOST_AUTO_TEST_CASE(test_count_alive) {
   BOOST_REQUIRE(f.count(7, 7, sz) == 0);
 }
 
-void checker(vector<string> check, set<pair<int, int>> res, int n, int m,
-  string test_case) {
+  void checker(vector<string> check, set<pair<int, int>> res, int n, int m,
+    string test_case) {
   Parse p = Parse();
   vector<pair<int, int>> put = Parse::get_alive(check, n, m);
   Size sz = Size(n, m);
@@ -123,7 +123,7 @@ void checker(vector<string> check, set<pair<int, int>> res, int n, int m,
     }
   }
   if (cnt != res.size()) {
-    BOOST_FAIL("should be " << res.size() << ", but get " << cnt
+    BOOST_FAIL("should be " << res.size() << " number of points, but get " << cnt
                             << " in test case " << test_case);
   }
 }

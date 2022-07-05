@@ -26,11 +26,24 @@ bool Parse::valid(string const &s) {
   return x.first > 0 && x.second > 0;
 }
 
-pair<int, int> Parse::point(const string &s) {
+pair<int, int> Parse::point(const string &s) const {
+  if (has(s, 'x') && valid(s)) {
+    auto res = split(s);
+    if (res.first > n || res.second > m) {
+      cout << "Incorrect input in put";
+      exit(0);
+    }
+    return res;
+  }
+  cout << "Incorrect input in put";
+  exit(0);
+}
+
+pair<int, int> Parse::size(const string &s) {
   if (has(s, 'x') && valid(s)) {
     return split(s);
   }
-  cout << "Incorrect input in size or put";
+  cout << "Incorrect input in size";
   exit(0);
 }
 
@@ -42,7 +55,7 @@ void Parse::cells() {
 }
 
 void Parse::build() {
-  pair<int, int> p = point(vm["size"].as<string>());
+  pair<int, int> p = size(vm["size"].as<string>());
   n = p.first;
   m = p.second;
   cells();

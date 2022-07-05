@@ -9,8 +9,8 @@ using namespace std;
 namespace po = boost::program_options;
 class Parse {
 private:
-  int n;
-  int m;
+  int n = 100000;
+  int m = 100000;
   vector<string> points;
   po::variables_map vm;
 
@@ -25,7 +25,8 @@ public:
 
   static bool has(const string &s, char c);
   static bool valid(string const &s);
-  static pair<int, int> point(const string &s);
+ pair<int, int> point(const string &s) const;
+  static pair<int, int> size(const string &s);
   static pair<int, int> split(const string &s);
   void cells();
   void build();  // builders and checkers
