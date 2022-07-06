@@ -23,7 +23,7 @@ FAST_SOURCES := $(wildcard Fast/src/*.cpp)
 FAST_HEADERS := $(wildcard Fast/**/*.h)
 FAST_OBJECTS := ${FAST_SOURCES:.cpp=.o}
 
-FAST_TEST_SOURCES := $(filter-out Fast/src/main.cpp, $(wildcard Fast/**/*.cpp Fast/tests/**/*.cpp))
+FAST_TEST_SOURCES := $(filter-out Fast/src/main.cpp, $(shell find Fast/  -type f -name *.cpp))
 
 FAST_TEST_OBJECTS := ${FAST_TEST_SOURCES:.cpp=.o}
 
@@ -51,7 +51,7 @@ SLOW_OBJECTS := ${SLOW_SOURCES:.cpp=.o}
 print:
 	find slow/tests/ -type f -name *.cpp
 
-SLOW_TEST_SOURCES := $(filter-out slow/src/main.cpp, $(wildcard slow/**/*.cpp slow/tests/**/*.cpp)) 
+SLOW_TEST_SOURCES := $(filter-out slow/src/main.cpp, $(shell find slow/  -type f -name *.cpp))
 
 
 SLOW_TEST_OBJECTS := ${SLOW_TEST_SOURCES:.cpp=.o}
