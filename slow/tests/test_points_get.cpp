@@ -18,17 +18,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LIFE_PROCESS_H
-#define LIFE_PROCESS_H
+#include <boost/test/unit_test.hpp>
 
-#include <bits/stdc++.h>
+#include "../include/cell.h"
+#include "../include/field.h"
+#include "../include/parse.h"
 
-using namespace std;
-
-class Process {
-public:
-  Process(){};
-  pair<string, string> split(string const &s);
-  pair<int, int> convert(pair<string, string> const &p);
-};
-#endif  // LIFE_PROCESS_H
+BOOST_AUTO_TEST_CASE(test_points_get) {
+  Parse p = Parse();
+  auto res = p.point("11x3");
+  BOOST_REQUIRE(res.first == 11 && res.second == 3);
+  res = p.point("5x100");
+  BOOST_REQUIRE(res.first == 5 && res.second == 100);
+  res = p.point("3x1");
+  BOOST_REQUIRE(res.first == 3 && res.second == 1);
+}

@@ -18,17 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LIFE_PROCESS_H
-#define LIFE_PROCESS_H
+#include <boost/test/unit_test.hpp>
 
-#include <bits/stdc++.h>
+#include "../include/repeats.h"
 
-using namespace std;
-
-class Process {
-public:
-  Process(){};
-  pair<string, string> split(string const &s);
-  pair<int, int> convert(pair<string, string> const &p);
-};
-#endif  // LIFE_PROCESS_H
+BOOST_AUTO_TEST_CASE(test_repeats) {
+  int n = 30;
+  Repeats r = Repeats(n);
+  BOOST_REQUIRE(r.rep == n);
+}

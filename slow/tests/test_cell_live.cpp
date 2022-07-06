@@ -18,17 +18,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LIFE_PROCESS_H
-#define LIFE_PROCESS_H
+#define BOOST_TEST_MODULE MyTest
+#include <boost/test/included/unit_test.hpp>
 
-#include <bits/stdc++.h>
+#include "../include/cell.h"
 
-using namespace std;
-
-class Process {
-public:
-  Process(){};
-  pair<string, string> split(string const &s);
-  pair<int, int> convert(pair<string, string> const &p);
-};
-#endif  // LIFE_PROCESS_H
+BOOST_AUTO_TEST_CASE(test_cell_live) {
+  Cell a = Cell(true);
+  Cell b = Cell(false);
+  BOOST_REQUIRE(!a.live(4).status());
+  BOOST_REQUIRE(a.live(2).status());
+  BOOST_REQUIRE(a.live(3).status());
+  BOOST_REQUIRE(!a.live(0).status());
+  BOOST_REQUIRE(b.live(3).status());
+  BOOST_REQUIRE(!b.live(1).status());
+  BOOST_REQUIRE(!b.live(2).status());
+}

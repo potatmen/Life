@@ -18,17 +18,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LIFE_PROCESS_H
-#define LIFE_PROCESS_H
+#define BOOST_TEST_MODULE MyTest
+#include <boost/test/included/unit_test.hpp>
 
-#include <bits/stdc++.h>
-
-using namespace std;
-
-class Process {
-public:
-  Process(){};
-  pair<string, string> split(string const &s);
-  pair<int, int> convert(pair<string, string> const &p);
-};
-#endif  // LIFE_PROCESS_H
+#include "../include/size.h"
+BOOST_AUTO_TEST_CASE(test_size) {
+  int n = 20;
+  int m = 30;
+  Size sz = Size(n, m);
+  BOOST_REQUIRE(sz.n == n && sz.m == m);
+}
