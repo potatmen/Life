@@ -1,4 +1,3 @@
-
 // Copyright (c) 2022 Anton Shatokhin
 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,23 +20,29 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "../include/field.h"
+#include "../../include/arg_parse.h"
+#include "../../include/field.h"
+#include "../../include/grid.h"
+#include "../../include/size.h"
 
 void checker(vector<string> check, set<pair<int, int>> res, int n, int m,
   string test_case) {
-  Field f = Field(n, m);
-  f = f.rec_add(f, check, 0);
-  auto g = f.live().field();
+  Parse p = Parse();
+  vector<pair<int, int>> put = Parse::get_alive(check, n, m);
+  Size sz = Size(n, m);
+  Field f = Field(sz);
+  f.read_and_set(put);
+  Grid g = Grid(sz, f);
+  g.nextGen();
   int cnt = 0;
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < m; j++) {
-      if (g[i][j].status()) {
-        cnt++;
+      if (g.g.f[i][j].getCurState()) {
         if (!res.count({i + 1, j + 1})) {
-          BOOST_FAIL(" in grid should be  {" << i + 1 << "," << j + 1
-                                             << "}, but not in case "
-                                             << test_case);
+          BOOST_FAIL("should be  {" << i + 1 << "," << j + 1
+                                    << "}, but not in test case " << test_case);
         }
+        cnt++;
       }
     }
   }
@@ -47,7 +52,7 @@ void checker(vector<string> check, set<pair<int, int>> res, int n, int m,
   }
 }
 
-BOOST_AUTO_TEST_CASE(test_field_live) {
+BOOST_AUTO_TEST_CASE(test_next_gen) {
   int n = 20;
   int m = 20;
   vector<string> check1 = {"2x3", "2x4", "3x2", "3x3", "3x4", "3x5"};

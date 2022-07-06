@@ -20,16 +20,25 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "../include/arg_parse.h"
+#include "../../include/cell.h"
+#include "../../include/field.h"
 
-BOOST_AUTO_TEST_CASE(test_arg_parse_size) {
-  for (int i = 0; i < 10; i++) {
-    int n = rand();
-    int m = rand();
-    string s = to_string(n) + "x" + to_string(m);
-    pair<int, int> res = Parse::get_size(s);
-    if (!(res.first == n && res.second == m)) {
-      BOOST_FAIL("didn't work with n = " << n << " and m = " << m);
-    }
-  }
+BOOST_AUTO_TEST_CASE(test_field_with) {
+  int n = 20;
+  int m = 20;
+  vector<string> check = {
+    "3x3", "2x2", "2x4", "4x2", "4x4", "5x5", "6x5", "7x5", "1x4"};
+  Field f = Field(n, m);
+  f = f.rec_add(f, check, 0);
+  Cell add = Cell(true);
+  f = f.with(1, 2, add);
+  f = f.with(3, 2, add);
+  add = Cell(false);
+  f = f.with(2, 2, add);
+  f = f.with(0, 3, add);
+  auto g = f.field();
+  BOOST_REQUIRE(g[1][2].status());
+  BOOST_REQUIRE(g[3][2].status());
+  BOOST_REQUIRE(!g[2][2].status());
+  BOOST_REQUIRE(!g[0][3].status());
 }

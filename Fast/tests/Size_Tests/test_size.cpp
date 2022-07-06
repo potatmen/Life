@@ -18,12 +18,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <boost/test/unit_test.hpp>
+#define BOOST_TEST_MODULE MyTest
+#include <boost/test/included/unit_test.hpp>
 
-#include "../include/repeats.h"
-
-BOOST_AUTO_TEST_CASE(test_repeats) {
-  int n = 30;
-  Repeats r = Repeats(n);
-  BOOST_REQUIRE(r.rep == n);
+#include "../../include/size.h"
+BOOST_AUTO_TEST_CASE(test_size) {
+  int n = 20;
+  int m = 30;
+  Size sz = Size(n, m);
+  BOOST_REQUIRE(sz.n == n && sz.m == m);
 }

@@ -21,7 +21,7 @@
 #define BOOST_TEST_MODULE MyTest
 #include <boost/test/included/unit_test.hpp>
 
-#include "../include/cell.h"
+#include "../../include/cell.h"
 
 BOOST_AUTO_TEST_CASE(test_cell_live) {
   Cell a = Cell(true);

@@ -18,15 +18,16 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+
 FAST_SOURCES := $(wildcard Fast/src/*.cpp)
 FAST_HEADERS := $(wildcard Fast/**/*.h)
 FAST_OBJECTS := ${FAST_SOURCES:.cpp=.o}
 
-FAST_TEST_SOURCES := $(filter-out Fast/src/main.cpp, $(wildcard Fast/**/*.cpp))
+FAST_TEST_SOURCES := $(filter-out Fast/src/main.cpp, $(wildcard Fast/**/*.cpp Fast/tests/**/*.cpp))
 
 FAST_TEST_OBJECTS := ${FAST_TEST_SOURCES:.cpp=.o}
 
-all: style slow fast
+all:  slow fast
 
 slow: slow_life slow_test
 
@@ -47,9 +48,13 @@ SLOW_HEADERS := $(wildcard slow/**/*.h)
 SLOW_OBJECTS := ${SLOW_SOURCES:.cpp=.o}
 
 
-SLOW_TEST_SOURCES = $(filter-out slow/src/main.cpp, $(wildcard slow/**/*.cpp))
+print:
+	find slow/tests/ -type f -name *.cpp
 
-SLOW_TEST_OBJECTS = ${SLOW_TEST_SOURCES:.cpp=.o}
+SLOW_TEST_SOURCES := $(filter-out slow/src/main.cpp, $(wildcard slow/**/*.cpp slow/tests/**/*.cpp)) 
+
+
+SLOW_TEST_OBJECTS := ${SLOW_TEST_SOURCES:.cpp=.o}
 
 slow_life: $(SLOW_OBJECTS)
 	g++ $(SLOW_OBJECTS) -lboost_program_options -o slow_life
@@ -76,6 +81,6 @@ fix:
 
 clean:
 	rm -f **/src/*.o
-	rm -f **/tests/*.o
+	rm -f **/tests/**/*.o
 	rm -f *_life		
 	rm -f *_test

@@ -20,16 +20,21 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "../include/cell.h"
-#include "../include/field.h"
-#include "../include/parse.h"
+#include "../../include/arg_parse.h"
+#include "../../include/field.h"
+#include "../../include/size.h"
 
-BOOST_AUTO_TEST_CASE(test_points_get) {
+BOOST_AUTO_TEST_CASE(test_count_alive) {
+  int n = 20;
+  int m = 20;
+  vector<string> check = {
+    "3x3", "2x2", "2x4", "4x2", "4x4", "5x5", "6x5", "7x5", "1x4"};
   Parse p = Parse();
-  auto res = p.point("11x3");
-  BOOST_REQUIRE(res.first == 11 && res.second == 3);
-  res = p.point("5x100");
-  BOOST_REQUIRE(res.first == 5 && res.second == 100);
-  res = p.point("3x1");
-  BOOST_REQUIRE(res.first == 3 && res.second == 1);
+  vector<pair<int, int>> put = Parse::get_alive(check, n, m);
+  Size sz = Size(n, m);
+  Field f = Field(sz);
+  f.read_and_set(put);
+  BOOST_REQUIRE(f.count(2, 2, sz) == 4);
+  BOOST_REQUIRE(f.count(4, 3, sz) == 3);
+  BOOST_REQUIRE(f.count(7, 7, sz) == 0);
 }
