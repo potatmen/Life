@@ -31,7 +31,6 @@ According to [previous research](https://github.com/yegor256/fibonacci) measurem
 At the beginning you need to install __BOOST__ library, and if you don't have ```g++```, ```clang-format``` and ```clang-tidy```. Like this, you can install everything:
 
 ```
-
   sudo apt install g++
 
   sudo apt-get install libboost-all-dev
@@ -39,7 +38,6 @@ At the beginning you need to install __BOOST__ library, and if you don't have ``
   sudo apt-get install -y clang-tidy
 
   sudo apt install clang-format
-
 ```
 
 ## Usage
@@ -47,25 +45,19 @@ At the beginning you need to install __BOOST__ library, and if you don't have ``
 To buld project, just do:
 
 ```
-
 $ make
-
 ```
 
 Then you can choose which version you prefer more, ```fast_life``` or ```slow_life``` to start the game, if you choose ```fast_life``` just run:
 
 ```
-
 $ ./fast_life --help
-
 ```
 
 Otherwise:
 
 ```
-
 $ ./slow_life --help
-
 ```
 
 It will show you all the available options.
@@ -75,9 +67,7 @@ All options are the same to both realizations, so ```fast_life``` will be used.
 For example, you can enter something like this:
 
 ```
-
 $ ./fast_life --batch 20 --size 40x40 --put 3x6 --put 6x8 --put 12x9
-
 ```
 
 This will run an automated game with 20 generations on the grid 40X40 with 3 initial alive cells.
@@ -85,49 +75,37 @@ This will run an automated game with 20 generations on the grid 40X40 with 3 ini
 If you want to clean the environment:
 
 ```
-
 $ make clean
-
 ```
 
 If you want to format all .cpp files (clang-format will be called to do so):
 
 ```
-
 $ make fix
-
 ```
 
 If you want to run tests for ```fast``` or ```slow``` version:
 
 ```
-
 $ make fast_test
-
 ```
 
 OR
 
 ```
-
 $ make slow_test
-
 ```
 
 If you want to see a beautiful game called [Gosper glider gun](https://conwaylife.com/wiki/Gosper_glider_gun) run this:
 
 ```
-
  ./fast_life --batch 1000 --sleep 170 --size 40x40 --put 10x26 --put 11x26 --put 11x24  --put 12x14 --put 12x15 --put 12x23 --put 12x22 --put 12x36 --put 12x37 --put 13x13 --put 13x17 --put 13x22 --put 13x23 --put 13x36 --put 13x37 --put 14x2 --put 14x3 --put 14x12 --put 14x18 --put 14x22 --put 14x23  --put 15x2 --put 15x3 --put 15x12 --put 15x16 --put 15x18 --put 15x19 --put 15x24 --put 15x26 --put 16x12 --put 16x18 --put 16x26 --put 17x13 --put 17x17 --put 18x14 --put 18x15
-
 ```
 
 If you want to see the infinite loop run:
 
 ```
-
 ./fast_life --batch 40 --sleep 500 --size 10x10 --put 5x4 --put 5x5 --put 5x6
-
 ```
 
 ## Structure
@@ -143,7 +121,6 @@ __Object ```Field()```__ stores the playing field and performs creation of the n
 __Details.__ ```rec_line_print``` and ```rec_grid_print``` print the field. ```rec_line_print``` performs creation of the initial field. ```rec_live``` preforms creation of the next generation. ```with``` performs changing of the ```Cell``` in the position ```(x,y)``` by returning a new ```Field``` object with changed cell. ```count``` counts the number of alive cells for the cell with coordinates ```(x,y)```. ```live``` calls ```rec_live``` with special arguments.
 
 ```
-
 class Field {
 
 private:
@@ -177,7 +154,6 @@ public:
   int count(int x, int y); 
 
 };
-
 ```
 
 <br />
@@ -189,7 +165,6 @@ __Object ```Cell()```__ stores the state (alive/dead) of the cell. Method ```liv
  
 
 ```
-
 class Cell {
 
 private:
@@ -207,7 +182,6 @@ public:
   Cell live(int cnt) const;  
 
 };
-
 ```
 
 <br />
@@ -217,7 +191,6 @@ public:
 __Object ```Parse()```__ performs parsing using __BOOST__ library and checks arguments entered in command line.
 
 ```
-
 class Parse {
 
 private:
@@ -261,7 +234,6 @@ public:
   void build();  
 
 };
-
 ```
 
 ## Structure of Fast version
@@ -275,7 +247,6 @@ The __Main__ object is ```Game( Grid( Size(), Field()) , *optional* Repeats())``
 __Object ```Repeats()```__ asks for the number of iterations and stores this value.
 
 ```
-
 class Repeats {
 
 public:
@@ -285,7 +256,6 @@ public:
   Repeats();
 
 };
-
 ```
 
 <br />
@@ -295,7 +265,6 @@ public:
 __Object ```Grid()```__ stores the size of the grid and the playing field. In addition to this, it has methods to print the current state and move to the next iteration.
 
 ```
-
 class Grid {
 
 public:
@@ -311,7 +280,6 @@ public:
   void nextGen();
 
 };
-
 ```
 
 <br />
@@ -321,7 +289,6 @@ public:
 __Object ```Size()```__ asks for the size of the playing field and stores this value. Flag here is used to make it possible to ask for the size only once. 
 
 ```
-
 class Size {
 
 public:
@@ -335,7 +302,6 @@ public:
   Size(int x, int y);
 
 };
-
 ```
 
 <br />
@@ -345,7 +311,6 @@ public:
 __Object ```Field()```__ stores the the 2-D array of ```Cell()```. ```Field()``` has methods to ask for initial alive cells and method to count the number of alive neighbor-cells.
 
 ```
-
 class Field {
 
 public:
@@ -361,7 +326,6 @@ public:
   int count(int x, int y, int sz);
 
 };
-
 ```
 
 <br />
@@ -375,7 +339,6 @@ __Details:__ ChangeNewState method helps to remember the next generation state o
 As mentioned before, newState is a variable that stores the state of the cell in the next generation during its creation. 
 
 ```
-
 class Cell {
 
 private:
@@ -397,7 +360,6 @@ public:
 };
 
 ```
-
 <br />
 
 <br />
@@ -405,7 +367,6 @@ public:
 __Object ```Game()```__ performs the game process with the interval of 2 seconds between generations.
 
 ```
-
 class Game {
 
 public:
@@ -415,7 +376,6 @@ public:
   Game(Grid gr);
 
 };
-
 ```
 
 <br />
@@ -425,7 +385,6 @@ public:
 __Object ```Parse()```__ performs console arguments parsing and checking.
 
 ```
-
 class Parse {
 
 public:
@@ -437,7 +396,6 @@ public:
   static vector> get_alive(vector const &a, int n, int m);
 
 };
-
 ```
 
 <br />
