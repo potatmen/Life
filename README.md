@@ -122,37 +122,25 @@ __Details.__ ```rec_line_print``` and ```rec_grid_print``` print the field. ```r
 
 ```
 class Field {
-
 private:
-
-  vector>> grid;
-
-  void rec_line_print(int depth);
-
-  void rec_grid_print(int x, int y);
+  vector<vector<Cell>> grid;
+  void rec_line_print(int depth);
+  void rec_grid_print(int x, int y);
 
 public:
+  Field(int n, int m) : Field(make_grid(n, m)) {}
+  Field(vector<vector<Cell>> g) : grid(g) {}
 
-  Field(int n, int m) : Field(make_grid(n, m)) {}
+  vector<vector<Cell>> field();  // getters
 
-  Field(vector> g) : grid(g) {}
+  Field rec_add(Field cur, vector<pair<int, int>> s, int pos);
+  Field rec_live(int x, int y, Field cur);
 
-  vectorCell>> field();  
-
-  Field rec_add(Field cur, vector s, int pos);
-
-  Field rec_live(int x, int y, Field cur);
-
-  static vector<vector<Cell>> make_grid(int n, int m);
-
-  Field live();
-
-  Field with(int x, int y, Cell a);
-
-  void print();  
-
-  int count(int x, int y); 
-
+  static vector<vector<Cell>> make_grid(int n, int m);
+  Field live();
+  Field with(int x, int y, Cell a);
+  void print();  // next_gen makers
+  int count(int x, int y);
 };
 ```
 
@@ -192,47 +180,30 @@ __Object ```Parse()```__ performs parsing using __BOOST__ library and checks arg
 
 ```
 class Parse {
-
 private:
-
-  int n = 100000;
-
-  int m = 100000;
-
-  vector<string> points;
-
-  po::variables_map vm;
+  int n = 100000;
+  int m = 100000;
+  vector<pair<int, int>> points;
+  po::variables_map vm;
 
 public:
+  Parse() : Parse(nullptr) {}
+  Parse(po::variables_map vmp) : vm(vmp) {} 
 
-  Parse() : Parse(nullptr) {}
+  int length() const;
+  int width() const;
+  vector<pair<int, int>> grid();
+  po::variables_map opts(); 
 
-  Parse(po::variables_map vmp) : vm(vmp) {} 
-
-  int length() const;
-
-  int width() const;
-
-  vector> grid();
-
-  po::variables_map opts();  
-
-  static bool has(const string &s, char c);
-
-  static bool valid(string const &s);
-
-  pair point(const string &s) const;
-
-  static pair size(const string &s);
-
-  static pair split(const string &s);
-
-  void positive();
-
-  void cells();
-
-  void build();  
-
+  vector<pair<int, int>> rec_cells(int pos, vector<pair<int, int>> p);
+  static bool has(const string &s, char c);
+  static bool valid(string const &s);
+  pair<int, int> point(const string &s) const;
+  static pair<int, int> size(const string &s);
+  static pair<int, int> split(const string &s);
+  void positive();
+  void cells();
+  void build();  
 };
 ```
 
