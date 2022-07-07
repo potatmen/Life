@@ -26,8 +26,8 @@
 BOOST_AUTO_TEST_CASE(test_field_with) {
   int n = 20;
   int m = 20;
-  vector<string> check = {
-    "3x3", "2x2", "2x4", "4x2", "4x4", "5x5", "6x5", "7x5", "1x4"};
+  vector<pair<int,int>> check = {
+    {3,3}, {2,2}, {2,4}, {4,2}, {4,4}, {5,5}, {6,5}, {7,5}, {1,4}};
   Field f = Field(n, m);
   f = f.rec_add(f, check, 0);
   Cell add = Cell(true);

@@ -39,7 +39,7 @@ public:
 
   vector<vector<Cell>> field();  // getters
 
-  Field rec_add(Field cur, vector<string> s, int pos);
+  Field rec_add(Field cur, vector<pair<int, int>> s, int pos);
   Field rec_live(int x, int y, Field cur);
 
   static vector<vector<Cell>> make_grid(int n, int m);

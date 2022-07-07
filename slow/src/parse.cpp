@@ -20,13 +20,13 @@
 
 #include "../include/parse.h"
 
-#include <utility>
+extern int counter;
 
 int Parse::length() const { return n; }
 
 int Parse::width() const { return m; }
 
-vector<string> Parse::grid() { return points; }
+vector<pair<int, int>> Parse::grid() { return points; }
 
 po::variables_map Parse::opts() { return vm; }
 
@@ -46,7 +46,7 @@ bool Parse::valid(string const &s) {
   return x.first > 0 && x.second > 0;
 }
 
-pair<int, int> Parse::point(const string &s) const {
+pair<int, int> Parse::point(const string &s) {
   if (has(s, 'x') && valid(s)) {
     auto res = split(s);
     if (res.first > n || res.second > m) {
@@ -78,11 +78,28 @@ void Parse::positive() {
   }
 }
 
-void Parse::cells() {
-  points = vm["put"].as<vector<string>>();
-  for (auto &p : points) {
-    point(p);
+vector<pair<int, int>> Parse::rec_cells(int pos, vector<pair<int, int>> p) {
+  vector<string> s = vm["put"].as<vector<string>>();
+  if (pos == s.size()) {
+    return p;
   }
+  pair<int, int> add = point(s[pos]);
+  vector<pair<int, int>> x(p.size() + 1);
+//
+  counter++;
+// 
+  copy(p.begin(), p.end(), x.begin());
+  x[p.size()] = add;
+  return rec_cells(pos + 1, x);
+}
+
+void Parse::cells() {
+  vector<pair<int, int>> free;
+//
+  counter++;
+// 
+
+  points = rec_cells(0, free);
 }
 
 void Parse::build() {

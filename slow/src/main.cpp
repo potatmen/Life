@@ -24,7 +24,7 @@
 #include "../include/parse.h"
 
 const int t = 1000;
-
+int counter = 0;
 void sleep(int x) {
   unsigned int microsecond = t * x;
   usleep(microsecond);
@@ -36,6 +36,11 @@ void rec(int depth, int max, bool flag, Field cur, Parse p) {
     return;
   }
   cur.print();
+
+//
+  counter++;
+// 
+
   Field next = cur.live();
   if (flag) {
     cout << R"(If you want to play more press "n", else "q".)" << endl;
@@ -50,6 +55,7 @@ void rec(int depth, int max, bool flag, Field cur, Parse p) {
     rec(depth + 1, max, false, next, p);
   }
 }
+
 const int def_val = 1000;
 int main(int ac, char *av[]) {
   int opt;
@@ -78,4 +84,5 @@ int main(int ac, char *av[]) {
   } else {
     rec(0, 0, true, f, p);
   }
+  cout << "The total number of created objects is: " << counter << endl;
 }

@@ -25,8 +25,8 @@
 #include "../../include/grid.h"
 #include "../../include/size.h"
 
-void checker(vector<string> check, set<pair<int, int>> res, int n, int m,
-  string test_case) {
+void checker(const vector<string>& check, const set<pair<int, int>>& res, int n, int m,
+  const string& test_case) {
   Parse p = Parse();
   vector<pair<int, int>> put = Parse::get_alive(check, n, m);
   Size sz = Size(n, m);
@@ -38,7 +38,7 @@ void checker(vector<string> check, set<pair<int, int>> res, int n, int m,
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < m; j++) {
       if (g.g.f[i][j].getCurState()) {
-        if (!res.count({i + 1, j + 1})) {
+        if (res.count({i + 1, j + 1}) == 0u) {
           BOOST_FAIL("should be  {" << i + 1 << "," << j + 1
                                     << "}, but not in test case " << test_case);
         }
