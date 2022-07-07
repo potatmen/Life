@@ -28,7 +28,7 @@ vector<vector<Cell>> Field::field() { return grid; }
 vector<vector<Cell>> Field::make_grid(int n, int m) {
   //
   counter++;
-// 
+  //
   vector<vector<Cell>> g;
   g.resize(n);
   for (int i = 0; i < n; i++) {
@@ -42,10 +42,10 @@ Field Field::rec_add(Field cur, vector<pair<int, int>> s, int pos) {
     return cur;
   }
   pair<int, int> x = s[pos];
-  
-//
+
+  //
   counter++;
-// 
+  //
   return rec_add(cur.with(x.first - 1, x.second - 1, Cell(true)), s, pos + 1);
 }
 
@@ -95,14 +95,14 @@ Field Field::rec_live(int x, int y, Field cur) {
     return cur;
   }
 
-//
+  //
   counter++;
-// 
+  //
   Cell replace = cur.field()[x][y].live(count(x, y));
 
-//
+  //
   counter++;
-// 
+  //
   return rec_live(x, y + 1, cur.with(x, y, replace));
 }
 
@@ -115,7 +115,7 @@ void Field::print() {
 Field Field::live() {
   //
   counter++;
-// 
+  //
   Field obj = Field(grid);
   return rec_live(0, 0, obj);
 }

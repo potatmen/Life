@@ -27,7 +27,7 @@ FAST_TEST_SOURCES := $(filter-out Fast/src/main.cpp, $(shell find Fast/  -type f
 
 FAST_TEST_OBJECTS := ${FAST_TEST_SOURCES:.cpp=.o}
 
-all:  slow fast
+all: style slow fast
 
 slow: slow_life slow_test
 

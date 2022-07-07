@@ -37,9 +37,9 @@ void rec(int depth, int max, bool flag, Field cur, Parse p) {
   }
   cur.print();
 
-//
+  //
   counter++;
-// 
+  //
 
   Field next = cur.live();
   if (flag) {

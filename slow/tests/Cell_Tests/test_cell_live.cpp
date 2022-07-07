@@ -21,6 +21,7 @@
 #define BOOST_TEST_MODULE MyTest
 #include <boost/test/included/unit_test.hpp>
 
+int counter = 0;
 #include "../../include/cell.h"
 
 BOOST_AUTO_TEST_CASE(test_cell_live) {

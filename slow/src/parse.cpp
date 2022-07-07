@@ -46,7 +46,7 @@ bool Parse::valid(string const &s) {
   return x.first > 0 && x.second > 0;
 }
 
-pair<int, int> Parse::point(const string &s) {
+pair<int, int> Parse::point(const string &s) const {
   if (has(s, 'x') && valid(s)) {
     auto res = split(s);
     if (res.first > n || res.second > m) {
@@ -85,9 +85,9 @@ vector<pair<int, int>> Parse::rec_cells(int pos, vector<pair<int, int>> p) {
   }
   pair<int, int> add = point(s[pos]);
   vector<pair<int, int>> x(p.size() + 1);
-//
+  //
   counter++;
-// 
+  //
   copy(p.begin(), p.end(), x.begin());
   x[p.size()] = add;
   return rec_cells(pos + 1, x);
@@ -95,9 +95,9 @@ vector<pair<int, int>> Parse::rec_cells(int pos, vector<pair<int, int>> p) {
 
 void Parse::cells() {
   vector<pair<int, int>> free;
-//
+  //
   counter++;
-// 
+  //
 
   points = rec_cells(0, free);
 }

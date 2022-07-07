@@ -30,7 +30,7 @@ class Parse {
 private:
   int n = 100000;
   int m = 100000;
-  vector<pair<int,int>> points;
+  vector<pair<int, int>> points;
   po::variables_map vm;
 
 public:
@@ -39,14 +39,13 @@ public:
 
   int length() const;
   int width() const;
-  vector<pair<int,int>> grid();
+  vector<pair<int, int>> grid();
   po::variables_map opts();  // getters
-  
 
-  vector<pair<int,int>> rec_cells(int pos,vector<pair<int,int>> p);
+  vector<pair<int, int>> rec_cells(int pos, vector<pair<int, int>> p);
   static bool has(const string &s, char c);
   static bool valid(string const &s);
-  pair<int, int> point(const string &s);
+  pair<int, int> point(const string &s) const;
   static pair<int, int> size(const string &s);
   static pair<int, int> split(const string &s);
   void positive();
