@@ -35,12 +35,15 @@
         ^.rec
           id.plus 1
       -1
+  rec 0 > @
 
 [str] > getSize
-  find str > pos
-  str.length > len
-  (sscanf "%d" (str.slice 0 pos)).at 0 > n
-  (sscanf "%d" (str.slice (pos.plus 1) ((len.minus pos).minus 1))).at 0
+  seq > @
+    find str > pos
+    str.length > len
+    (sscanf "%d" (str.slice 0 pos)).at 0 > n
+    (sscanf "%d" (str.slice (pos.plus 1) ((len.minus pos).minus 1))).at 0 > m
+    pair n m
 
 [id arg] > parseSize
   if. > @
@@ -53,15 +56,37 @@
         eq.
           val
           "size"
-        getSize (sscanf "%s" (arg.at (id.plus 1))).at 0
+        getSize ((sscanf "%s" (arg.at (id.plus 1))).at 0)
         ^.parseSize
           id.plus 1
           arg
     pair 40 40
 
+[arg] > parsePut
+  [id arr] > rec
+    if. > @
+      lt.
+        id
+        ^.arg.length
+      seq
+        (sscanf "%s" (arg.at id)).at 0 > val
+        if.
+          eq.
+            val
+            "put"
+          ^.rec
+            id.plus 2
+            with.
+              arr
+              getSize ((sscanf "%s" (arg.at (id.plus 1))).at 0)
+          ^.rec
+            id.plus 1
+            arr
+      arr
+  rec 0 * > @
+
 [args...] > life
-  stdout > @
-    sprintf
-    "%d \n"
-    parseSleep 0 args
+  parseSleep 0 args > sleep
+  parseSize 0 args > size
+  parsePut args > put
 
