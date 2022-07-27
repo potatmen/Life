@@ -1,0 +1,67 @@
++alias org.eolang.txt.sscanf
++alias org.eolang.txt.sprintf
++alias org.eolang.io.stdout
+
+[x y] > pair
+
+[id arg] > parseSleep
+  if. > @
+    lt.
+      id
+      arg.length
+    seq
+      (sscanf "%s" (arg.at id)).at 0 > val
+      if.
+        eq.
+          val
+          "sleep"
+        (sscanf "%d" (arg.at (id.plus 1))).at 0
+        ^.parseSleep
+          id.plus 1
+          arg
+    1000
+
+[str] > find
+  [id] > rec
+    if. > @
+      lt.
+        id
+        str.length
+      if.
+        eq.
+          str.slice id 1
+          "x"
+        id
+        ^.rec
+          id.plus 1
+      -1
+
+[str] > getSize
+  find str > pos
+  str.length > len
+  (sscanf "%d" (str.slice 0 pos)).at 0 > n
+  (sscanf "%d" (str.slice (pos.plus 1) ((len.minus pos).minus 1))).at 0
+
+[id arg] > parseSize
+  if. > @
+    lt.
+      id
+      arg.length
+    seq
+      (sscanf "%s" (arg.at id)).at 0 > val
+      if.
+        eq.
+          val
+          "size"
+        getSize (sscanf "%s" (arg.at (id.plus 1))).at 0
+        ^.parseSize
+          id.plus 1
+          arg
+    pair 40 40
+
+[args...] > life
+  stdout > @
+    sprintf
+    "%d \n"
+    parseSleep 0 args
+

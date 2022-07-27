@@ -1,0 +1,1 @@
+eoc --alone dataize life sleep 30 size 20x20 put 10x10
