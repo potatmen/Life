@@ -85,8 +85,62 @@
       arr
   rec 0 * > @
 
+[state] > cell
+
+[newState] > changeState
+  cell newState > @
+
+[cnt c] > cellLive
+  if. > @
+    or.
+      and.
+        c.state
+        or.
+          cnt.eq 2
+          cnt.eq 3
+      and.
+        not.
+          c.state
+        cnt.eq 3
+    cell TRUE
+    cell FALSE
+
+[n m] > makeGrid
+  [id res] > width
+    [ind arr] > depth
+      if. > @
+        lt.
+          ind
+          ^.^.m
+        ^.depth
+          ind.plus 1
+          with.
+            arr
+            cell FALSE
+        arr
+    if. > @
+      lt.
+        id
+        ^.n
+      ^.width
+        id.plus 1
+        with.
+          res
+          depth
+            0
+            *
+      res
+  width 0 * > @
+
 [args...] > life
   parseSleep 0 args > sleep
   parseSize 0 args > size
   parsePut args > put
-
+  size.x > n
+  size.m > m
+  makeGrid n m > res
+  stdout > @
+    sprintf
+      "%d %d \n"
+      res.length
+      (res.at 0).lengthcd 
