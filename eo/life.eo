@@ -1,7 +1,6 @@
-+alias org.eolang.txt.sscanf
 +alias org.eolang.txt.sprintf
 +alias org.eolang.io.stdout
-
++alias org.eolang.txt.sscanf
 [x y] > pair
 
 [id arg] > parseSleep
@@ -38,12 +37,11 @@
   rec 0 > @
 
 [str] > getSize
-  seq > @
-    find str > pos
-    str.length > len
-    (sscanf "%d" (str.slice 0 pos)).at 0 > n
-    (sscanf "%d" (str.slice (pos.plus 1) ((len.minus pos).minus 1))).at 0 > m
-    pair n m
+  find str > pos
+  str.length > len
+  (sscanf "%d" (str.slice 0 pos)).at 0 > n
+  (sscanf "%d" (str.slice (pos.plus 1) ((len.minus pos).minus 1))).at 0 > m
+  pair n m > @
 
 [id arg] > parseSize
   if. > @
@@ -105,42 +103,80 @@
     cell TRUE
     cell FALSE
 
-[n m] > makeGrid
-  [id res] > width
-    [ind arr] > depth
-      if. > @
-        lt.
-          ind
-          ^.^.m
-        ^.depth
-          ind.plus 1
-          with.
-            arr
-            cell FALSE
-        arr
+[sz] > makeGrid
+  [id res] > build
     if. > @
       lt.
         id
-        ^.n
-      ^.width
+        ^.sz
+      ^.build
         id.plus 1
         with.
           res
-          depth
-            0
-            *
+          cell FALSE
       res
-  width 0 * > @
+  build 0 * > @
+
+[pos c grid] > change
+  grid.length > sz
+  [id res] > rec
+    if. > @
+      lt.
+        id
+        ^.sz
+      if.
+        eq.
+          id
+          ^.pos
+        ^.rec
+          id.plus 1
+          with.
+            res
+            ^.c
+        ^.rec
+          id.plus 1
+          with.
+            res
+            (^.grid).at id
+      res
+  rec 0 * > @
+
+[id arr grid m] > fill
+  if. > @
+    lt.
+      id
+      arr.length
+    ^.fill
+      id.plus 1
+      arr
+      seq
+        (arr.at id).x > a
+        (arr.at id).y > b
+        (a.times m).plus b > pos
+        change > res!
+          pos
+          cell TRUE
+          grid
+        res
+      m
+    grid
 
 [args...] > life
   parseSleep 0 args > sleep
   parseSize 0 args > size
-  parsePut args > put
+  parsePut args > put!
   size.x > n
-  size.m > m
-  makeGrid n m > res
+  size.y > m
+  makeGrid (n.times m) > clear!
+  fill > res!
+    0
+    put
+    clear
+    m
   stdout > @
     sprintf
-      "%d %d \n"
+      "%d %b %b %b\n"
       res.length
-      (res.at 0).lengthcd 
+      (res.at 17).state
+      (res.at 22).state
+      (res.at 1).state
